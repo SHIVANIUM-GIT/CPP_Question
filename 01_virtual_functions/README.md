@@ -4,6 +4,63 @@ This module covers everything an interviewer will ask about virtual functions, l
 
 ---
 
+## 🐣 What is a Virtual Function and Why Do We Use It?
+
+### 1. In Simple Words
+A **virtual function** is a member function in a base class that instructs the compiler:
+> *"Hey compiler! I am providing a default version of this function, but if any child class overrides me, **call the child's version even if you are accessing it through a base class pointer!**"*
+
+It is the foundation of **Runtime Polymorphism** (Late / Dynamic Binding) in C++.
+
+---
+
+### 2. The Problem It Solves: The "Blind Pointer" Problem
+Consider storing a derived object in a base class pointer:
+```cpp
+Animal* a = new Dog(); // A base pointer pointing to a Dog in memory
+a->makeSound();
+```
+
+* **❌ WITHOUT `virtual` (Compiler is Blind):**  
+  The compiler only looks at the pointer label (`Animal*`). It is blind to the actual `Dog` object in memory, performing **Static Binding** and calling `Animal::makeSound()`.  
+  *Output:* `Animal makes a sound` (Wrong! A dog should bark).
+
+* **✅ WITH `virtual` (Compiler Checks Memory via vtable):**  
+  The compiler generates instructions to inspect the object's hidden `vptr` at runtime, performing **Dynamic Binding** to call `Dog::makeSound()`.  
+  *Output:* `Dog barks: Woof!` (Correct!).
+
+---
+
+### 3. Side-by-Side Comparison Code
+```cpp
+class Animal {
+public:
+    void normalSound() { std::cout << "Generic sound\n"; }
+    virtual void virtualSound() { std::cout << "Generic sound\n"; }
+};
+
+class Dog : public Animal {
+public:
+    void normalSound() { std::cout << "Woof!\n"; }
+    void virtualSound() override { std::cout << "Woof!\n"; }
+};
+
+int main() {
+    Animal* a = new Dog();
+    a->normalSound();  // ❌ Calls Animal's version (Static Binding)
+    a->virtualSound(); // ✅ Calls Dog's version (Dynamic Binding)
+}
+```
+
+---
+
+### 4. When Should You Use `virtual`?
+1. Whenever a base class defines a method that derived classes must customize or override.
+2. Whenever you work with polymorphic collections (`std::vector<Base*>`).
+3. **Always** make base class destructors `virtual ~Base()` to prevent derived memory leaks on `delete`.
+
+---
+
 ## 🔥 Top Interview Questions & Pro Answers
 
 ### Q1: Why must a base class destructor be declared `virtual`?
