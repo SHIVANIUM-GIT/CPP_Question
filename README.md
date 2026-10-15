@@ -36,5 +36,5 @@ g++ -std=c++17 01_virtual_basics.cpp -o app && ./app
 
 ## Recommended Books & References
 
-* [Scott Meyers - Effective Modern C++ (PDF)](./books/Scott_Meyers_Effective_Modern_C++.pdf): The gold-standard guide to C++11 and C++14 best practices, item-by-item breakdown of move semantics, perfect forwarding, lambda expressions, and concurrency.
+* [Scott Meyers - Effective Modern C++ (PDF)](https://ananyapam7.github.io/resources/C++/Scott_Meyers_Effective_Modern_C++.pdf): The gold-standard guide to C++11 and C++14 best practices, item-by-item breakdown of move semantics, perfect forwarding, lambda expressions, and concurrency.
 
