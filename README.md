@@ -11,6 +11,7 @@ Welcome to the **C++ Interview Deep-Dive**. This repository is structured into m
 
 | Folder | Topic | Key Concepts |
 | :--- | :--- | :--- |
+| [📁 `00_operator_overloading_and_streams/`](./00_operator_overloading_and_streams/) | **Streams & Operator Overloading** | `cout` chaining (`*this`), `endl` vs `\n`, namespace safety, `friend operator<<` |
 | [📁 `01_virtual_functions/`](./01_virtual_functions/) | **Virtual Functions & Polymorphism** | `vptr`, `vtable`, Virtual Destructors, Pure Virtual (`= 0`), Virtual in Constructors trap |
 | [📁 `02_static_and_global/`](./02_static_and_global/) | **Static & Global Variables** | The 4 faces of `static`, `extern`, lifetime vs scope, static members |
 | [📁 `03_oop_pillars/`](./03_oop_pillars/) | **The 4 Pillars of OOP** | Encapsulation, Abstraction, Inheritance, Polymorphism in modern C++ |
