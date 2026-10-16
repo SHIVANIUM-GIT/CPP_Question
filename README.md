@@ -37,4 +37,6 @@ g++ -std=c++17 01_virtual_basics.cpp -o app && ./app
 ## Recommended Books & References
 
 * [Scott Meyers - Effective Modern C++ (PDF)](https://ananyapam7.github.io/resources/C++/Scott_Meyers_Effective_Modern_C++.pdf): The gold-standard guide to C++11 and C++14 best practices, item-by-item breakdown of move semantics, perfect forwarding, lambda expressions, and concurrency.
+* [Design Patterns: Elements of Reusable Object-Oriented Software - Erich Gamma (PDF)](https://www.javier8a.com/itc/bd1/articulo.pdf): The classic "Gang of Four" (GoF) book establishing foundational object-oriented design patterns (Creational, Structural, and Behavioral patterns).
+* [Anthony Williams - C++ Concurrency in Action (PDF)](https://beefnoodles.cc/assets/book/C++%20Concurrency%20in%20Action.pdf): The definitive deep-dive into multi-threading, memory models, lock-free programming, and atomic operations in modern C++.
 

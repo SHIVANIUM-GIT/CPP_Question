@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <memory>
 
 class Player {
 private:
@@ -30,26 +31,53 @@ public:
 int Player::activePlayers = 0;
 
 int main() {
- // 1. Calling static function WITHOUT creating any Player object:
- Player::displayServerStats();
+  // 1. Calling static function WITHOUT creating any Player object:
+  Player::displayServerStats();
 
- // 2. Creating Player objects:
- Player* p1 = new Player("Alice");
- Player* p2 = new Player("Bob");
+  // 2. Stack Allocation (Automatic storage - Recommended in modern C++):
+  // Automatically destroyed when going out of scope; no manual delete needed.
+  std::cout << "\n--- 1. Stack Allocation ---\n";
+  Player p1("Alice");
+  Player::displayServerStats();
 
- Player::displayServerStats();
+  // 3. Raw Pointer on Heap (Manual memory management with new / delete):
+  // Must manually call delete, otherwise memory leaks occur.
+  std::cout << "\n--- 2. Heap Allocation (Raw Pointer with new) ---\n";
+  Player* p2 = new Player("Bob");
+  Player::displayServerStats();
+  delete p2; // manual cleanup
+  Player::displayServerStats();
 
- {
- Player temp("Guest_123");
- Player::displayServerStats();
- } // temp goes out of scope here and is destroyed
+  // 4. Smart Pointers (Modern C++ Heap Allocation):
+  // std::unique_ptr: Exclusive ownership, frees memory automatically when out of scope.
+  std::cout << "\n--- 3. Smart Pointer (std::unique_ptr) ---\n";
+  {
+    std::unique_ptr<Player> p3 = std::make_unique<Player>("Charlie");
+    Player::displayServerStats();
+  } // p3 automatically destroyed here!
+  Player::displayServerStats();
 
- Player::displayServerStats();
+  // std::shared_ptr: Shared ownership with reference counting, frees when ref count drops to 0.
+  std::cout << "\n--- 4. Smart Pointer (std::shared_ptr) ---\n";
+  {
+    std::shared_ptr<Player> p4 = std::make_shared<Player>("Diana");
+    {
+      std::shared_ptr<Player> p4_copy = p4; // Ref count = 2
+      std::cout << "p4 use_count: " << p4.use_count() << "\n";
+    } // p4_copy destroyed, Ref count = 1
+    std::cout << "p4 use_count: " << p4.use_count() << "\n";
+  } // p4 destroyed, Ref count = 0 -> Player "Diana" deleted!
+  Player::displayServerStats();
 
- delete p1;
- delete p2;
+  // 5. Block Scope Demo (Stack):
+  std::cout << "\n--- 5. Block Scope (Stack) ---\n";
+  {
+    Player temp("Guest_123");
+    Player::displayServerStats();
+  } // temp destroyed here
 
- Player::displayServerStats();
+  Player::displayServerStats();
 
- return 0;
+  std::cout << "\n--- Exiting main (p1 will be destroyed) ---\n";
+  return 0;
 }
